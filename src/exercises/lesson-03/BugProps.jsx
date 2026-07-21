@@ -12,11 +12,12 @@
   Use the commented "Explanation" section at the bottom of this lesson's components.
 */
 
+import { useState } from 'react';
 export default function BugProps({ name = 'friend' }) {
-  let message = 'Hello, ' + name;
+  const [message, setMessage] = useState('Hello, ' + name);
 
   function handleChange() {
-    message = 'Hi, ' + name + '!';
+    setMessage('Hi, ' + name + '!');
   }
 
   return (
@@ -28,4 +29,10 @@ export default function BugProps({ name = 'friend' }) {
 }
 
 // Explanation:
-// (Write your explanation here)
+// The message did not update because we were using a
+// normal JavaScript variable instead of React state.
+// Changing a regular variable does not notify React
+// that something changed, so React does not re-render the component.
+// We fix the bug by using `useState` because it allows
+// React to track the message value. When we use the state
+// setter function, React knows the value changed and updates the UI.

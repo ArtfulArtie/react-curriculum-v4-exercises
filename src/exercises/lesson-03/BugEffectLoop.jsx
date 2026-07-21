@@ -15,10 +15,16 @@ export default function BugEffectLoop() {
 
   useEffect(() => {
     setCount(count + 1);
-  });
+  }, []);
 
   return <p>Bug 1 Count: {count}</p>;
 }
 
 // Explanation:
-// (Write your explanation here)
+// The bug was that the `useEffect` ran after every render because
+// it did not have a dependency array. Every time the effect ran,
+// it increased the count by one, which caused another render and
+// created a continuous loop. Adding an empty dependency array (`[]`)
+// tells React to run the effect only once when the component first mounts.
+// The count updates from 0 to 1, React re-renders to display the new value,
+// and then the effect does not run again.
