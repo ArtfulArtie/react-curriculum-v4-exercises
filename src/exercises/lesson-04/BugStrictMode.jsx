@@ -7,9 +7,13 @@ export default function BugStrictMode() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -21,3 +25,10 @@ export default function BugStrictMode() {
 }
 
 // Write your explanation of how StrictMode helps us catch this bug
+//StrictMode mounts components twice in development
+// to help detect side effects. Without cleaning up the
+// interval, multiple intervals continue running,
+// causing the counter to increase too quickly.
+// Returning a cleanup function with clearInterval()
+// removes the old interval before the effect runs again,
+// so only one timer is active.
