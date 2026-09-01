@@ -3,6 +3,7 @@ import {
   RenderCounter,
 } from '../../private/components/renderCounter.jsx';
 import styles from './BookCard.module.css';
+import { memo } from 'react';
 
 function BookCard({ book, isFavorite, onToggleFavorite }) {
   const { count } = useRenderCounter('BookCard');
@@ -32,4 +33,4 @@ function BookCard({ book, isFavorite, onToggleFavorite }) {
   );
 }
 
-export default BookCard;
+export default memo(BookCard);
